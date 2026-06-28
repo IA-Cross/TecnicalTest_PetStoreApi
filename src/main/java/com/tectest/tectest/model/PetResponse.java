@@ -1,5 +1,6 @@
 package com.tectest.tectest.model;
 
+/** DTO representing a pet retrieved from the external Petstore API. */
 public class PetResponse {
     private Long id;
     private String name;

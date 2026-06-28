@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/** Service layer handling business logic, console logging, and response enrichment. */
 @Service
 public class PetService {
 
@@ -17,7 +18,7 @@ public class PetService {
     public PetService(PetStoreClient petStoreClient) {
         this.petStoreClient = petStoreClient;
     }
-
+    /** Retrieves a pet by ID and logs the result to the console. */
     public PetResponse getPet(Long petId) {
         PetResponse pet = petStoreClient.getPetById(petId);
         System.out.println("Pet found: id=" + pet.getId()
@@ -25,10 +26,9 @@ public class PetService {
                 + ", status=" + pet.getStatus());
         return pet;
     }
-
+    /** Creates a pet and returns an enriched response with transactionId and dateCreated. */
     public PetCreateResponse createPet(PetRequest request) {
         PetResponse pet = petStoreClient.createPet(request);
-
         System.out.println("Pet created: id=" + pet.getId()
                 + ", name=" + pet.getName()
                 + ", status=" + pet.getStatus());
