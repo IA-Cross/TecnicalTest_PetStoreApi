@@ -1,81 +1,50 @@
-# Technical Test - Pet Store API
+# Petstore API
 
-## 1. Project Setup
+Spring Boot REST API that consumes the [Swagger Petstore API](https://petstore.swagger.io/v2) to manage pets.
 
-Project created from [https://start.spring.io](https://start.spring.io)
+## Tech Stack
 
-- **Build tool:** Gradle - Groovy
-- **Language:** Java
-- **Spring Boot version:** 3.2.7
-- **Packaging:** Jar
-- **Java version:** 17
-- **Dependencies:** Spring Web
+Java 17, Spring Boot 3.2.7, Gradle, Spring Web (RestTemplate)
 
-## 2. Import & Build
-
-- Download the project and import it into IntelliJ IDEA.
-- Once imported, execute the Gradle commands needed to download the dependencies and build the project.
-
-## 3. Folder Structure
-
-Create a folder structure that organizes the code as follows:
-
-- **Controller** — Classes to define REST APIs
-- **Service** — Classes to implement the business logic
-- **Client** — Classes to connect to third-party APIs
-- **Model** — Classes to hold data in objects
-
-## 4. GET Endpoint
-
-Develop the following REST API:
+## Project Structure
 
 ```
-GET /api/pet/{petId}
+config/       → Bean configuration (RestTemplate)
+controller/   → REST endpoints
+service/      → Business logic
+client/       → External API calls
+model/        → DTOs
 ```
 
-- **Input parameters:** `petId` — Path parameter
-- **Output parameters:** `id`, `name`, `status`
+## Endpoints
 
-## 5. External API Consumption (GET)
+### GET /api/pet/{petId}
 
-To obtain the data that the `GET /api/pet/{petId}` endpoint returns, consume the following external API:
+Fetches a pet by ID from the external Petstore API.
 
-- `GET /pet/{petId}` from [Petstore Swagger](https://petstore.swagger.io/#/)
-
-## 6. Service Layer (GET)
-
-Develop a Service layer that prints the obtained data to the console before returning it as the API response.
-
-## 7. Test the GET Endpoint
-
-Execute and test the project.
-
-## 8. POST Endpoint
-
-Develop the following REST API:
-
-```
-POST /api/pet
+```bash
+curl http://localhost:8080/api/pet/1
 ```
 
-- **Input parameters:** `id`, `status`, `name`
-- **Output parameters:** `transactionId`, `dateCreated`, `status`, `name`
+Response: `id`, `name`, `status`
 
-## 9. External API Consumption (POST)
+### POST /api/pet
 
-The data must be saved in an external system. Consume the following external API:
+Creates a pet via the external Petstore API and enriches the response.
 
-- `POST /pet` from [Petstore Swagger](https://petstore.swagger.io/#/)
+```bash
+curl -X POST http://localhost:8080/api/pet \
+  -H "Content-Type: application/json" \
+  -d '{"id": 12345, "name": "Buddy", "status": "available"}'
+```
 
-## 10. Service Layer (POST)
+Response: `transactionId` (UUIDv4), `dateCreated` (system date), `status`, `name`
 
-Develop a Service layer that:
+## Run
 
-- Prints the obtained information to the console before returning it as the API response.
-- Generates the response field `transactionId` with a **UUIDv4** format.
-- Generates the response field `dateCreated` using the **current system date**.
+```bash
+./gradlew clean build
+./gradlew bootRun
+```
 
-## 11. Test the POST Endpoint
-
-Execute and test the project.
-
+App starts on `http://localhost:8080`.
