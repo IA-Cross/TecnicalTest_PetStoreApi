@@ -1,5 +1,6 @@
 package com.tectest.tectest.model;
 
+/** DTO for the POST /api/pet request body. */
 public class PetRequest {
     private Long id;
     private String name;

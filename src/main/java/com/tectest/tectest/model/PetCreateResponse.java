@@ -1,17 +1,11 @@
 package com.tectest.tectest.model;
 
+/** DTO for the POST /api/pet response, enriched with transactionId and dateCreated. */
 public class PetCreateResponse {
     private String transactionId;
     private String dateCreated;
     private String status;
     private String name;
-
-    public PetCreateResponse(String transactionId, String dateCreated, String status, String name) {
-        this.transactionId = transactionId;
-        this.dateCreated = dateCreated;
-        this.status = status;
-        this.name = name;
-    }
 
     public PetCreateResponse() {
 
